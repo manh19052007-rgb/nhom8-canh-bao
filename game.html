@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Công an chống lừa đảo · Nhóm 8</title>
+  <meta name="description" content="Game tương tác về phòng chống lừa đảo của Nhóm 8, chơi ngay trên trình duyệt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="container nav" aria-label="Điều hướng chính">
+    <a class="brand" href="index.html">Nhóm 8 <span>· Tỉnh táo số</span></a>
+    <ul>
+      <li><a href="index.html#thuc-trang">Thực trạng</a></li>
+      <li><a href="index.html#phong-tranh">Phòng tránh</a></li>
+      <li><a href="index.html#san-pham">Sản phẩm</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container detail">
+  <a class="back" href="index.html#san-pham">← Về danh sách sản phẩm</a>
+  <h1>Công an chống lừa đảo</h1>
+  <p class="lead">Game tương tác giúp bạn luyện phản xạ trước các chiêu lừa đảo, chơi ngay trên trình duyệt.</p>
+
+  <!-- Khung chơi game: nhúng trực tiếp từ Netlify -->
+  <div class="media game-frame" id="gameFrame">
+    <iframe id="gameIframe"
+            src="https://tinh-hoa-hoi-tu.netlify.app/"
+            title="Game Công an chống lừa đảo"
+            allow="fullscreen"
+            allowfullscreen
+            loading="lazy"></iframe>
+  </div>
+
+  <div class="game-actions">
+    <button class="btn" id="fsBtn" type="button">Toàn màn hình</button>
+    <a class="btn ghost" href="https://tinh-hoa-hoi-tu.netlify.app/" target="_blank" rel="noopener">Mở game ở tab mới</a>
+  </div>
+  <p class="game-note">Nếu khung game hiển thị trắng hoặc quá nhỏ, hãy bấm “Mở game ở tab mới” để chơi đầy đủ. Trên điện thoại, bạn nên xoay ngang màn hình.</p>
+
+  <h2>Giới thiệu</h2>
+  <p>Đây là sản phẩm game của Nhóm 8 trong đề tài cảnh báo lừa đảo đối với sinh viên. Thay vì chỉ đọc lý thuyết, bạn đóng vai người chống lừa đảo và trực tiếp xử lý tình huống, từ đó nhớ lâu hơn các dấu hiệu nhận biết đã nêu ở trang chủ.</p>
+
+  <h2>Thông tin</h2>
+  <ul class="specs">
+    <li><span>Chủ đề</span><span>Phòng chống lừa đảo</span></li>
+    <li><span>Nền tảng</span><span>Trình duyệt web</span></li>
+    <li><span>Đối tượng</span><span>Sinh viên</span></li>
+    <li><span>Thực hiện</span><span>Nhóm 8</span></li>
+  </ul>
+  <a class="btn ghost" href="index.html#san-pham">Xem sản phẩm khác</a>
+</main>
+
+<footer class="site-footer">© 2026 Nhóm 8 · Đề tài: Cảnh báo lừa đảo đối với sinh viên</footer>
+
+<script>
+  // Nút toàn màn hình cho khung game
+  const frame = document.getElementById("gameFrame");
+  const fsBtn = document.getElementById("fsBtn");
+  if (frame.requestFullscreen) {
+    fsBtn.addEventListener("click", () => frame.requestFullscreen());
+  } else {
+    fsBtn.hidden = true; // trình duyệt không hỗ trợ: chỉ giữ nút mở tab mới
+  }
+</script>
+</body>
+</html>
