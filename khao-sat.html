@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phiếu khảo sát sinh viên · Nhóm 8</title>
+  <meta name="description" content="Phiếu khảo sát của Nhóm 8 về trải nghiệm lừa đảo của sinh viên.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="container nav" aria-label="Điều hướng chính">
+    <a class="brand" href="index.html">Nhóm 8 <span>· Tinh Hoa Hội Tụ</span></a>
+    <ul>
+      <li><a href="index.html#thuc-trang">Thực trạng</a></li>
+      <li><a href="index.html#phong-tranh">Phòng tránh</a></li>
+      <li><a href="index.html#san-pham">Sản phẩm</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container detail">
+  <a class="back" href="index.html#san-pham">← Về danh sách sản phẩm</a>
+  <h1>Phiếu khảo sát sinh viên</h1>
+  <p class="lead">Dành ít phút chia sẻ trải nghiệm của bạn về lừa đảo trực tuyến để giúp nhóm hiểu rõ thực trạng trong sinh viên.</p>
+
+  <!-- ============================================================
+       DÁN LINK GOOGLE FORM VÀO ĐÂY (giữa hai dấu nháy kép).
+       Cách lấy: mở form → bấm "Gửi" → biểu tượng liên kết → Sao chép.
+       Dạng: https://docs.google.com/forms/d/e/XXXXXXXX/viewform
+       ============================================================ -->
+  <div class="media form-frame" id="formFrame"></div>
+  <div class="game-actions" id="formActions" hidden>
+    <a class="btn ghost" id="formLink" href="#" target="_blank" rel="noopener">Mở biểu mẫu ở tab mới</a>
+  </div>
+
+  <h2>Giới thiệu</h2>
+  <p>Phiếu khảo sát giúp nhóm biết sinh viên thường gặp những chiêu lừa đảo nào, phản ứng ra sao và đã từng báo cho ai chưa. Kết quả sẽ được dùng để bổ sung số liệu thực tế về nhóm sinh viên cho đề tài.</p>
+
+  <h2>Thông tin</h2>
+  <ul class="specs">
+    <li><span>Hình thức</span><span>Google Form</span></li>
+    <li><span>Đối tượng</span><span>Sinh viên</span></li>
+    <li><span>Mục đích</span><span>Thu thập ý kiến phục vụ đề tài</span></li>
+    <li><span>Thực hiện</span><span>Nhóm 8</span></li>
+  </ul>
+  <a class="btn ghost" href="index.html#san-pham">Xem sản phẩm khác</a>
+</main>
+
+<footer class="site-footer">© 2026 Nhóm 8 · Đề tài: Cảnh báo lừa đảo đối với sinh viên</footer>
+
+<script>
+  const FORM_URL = "";   // <-- dán link Google Form vào đây
+
+  const frame = document.getElementById("formFrame");
+  if (FORM_URL) {
+    const embed = FORM_URL + (FORM_URL.includes("?") ? "&" : "?") + "embedded=true";
+    frame.innerHTML = '<iframe src="' + embed + '" title="Phiếu khảo sát sinh viên" loading="lazy">Đang tải…</iframe>';
+    document.getElementById("formLink").href = FORM_URL;
+    document.getElementById("formActions").hidden = false;
+  } else {
+    frame.innerHTML = '<div class="form-empty"><span style="font-size:3rem" aria-hidden="true">📋</span>' +
+      '<p><strong>Phiếu khảo sát sẽ hiện ở đây.</strong></p>' +
+      '<p>Mở file <code>khao-sat.html</code>, tìm dòng <code>const FORM_URL = ""</code> ở cuối file và dán link Google Form vào giữa hai dấu nháy.</p></div>';
+  }
+</script>
+</body>
+</html>
