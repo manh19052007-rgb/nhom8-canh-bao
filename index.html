@@ -302,8 +302,13 @@
             </div>
           </div>
           <p class="hint">
-            Di chuột (hoặc nhấn Tab) vào từng ô số liệu để xem biểu đồ so sánh
-            với năm trước.
+            <span class="hint-hover"
+              >Di chuột (hoặc nhấn Tab) vào từng ô số liệu để xem biểu đồ so
+              sánh với năm trước.</span
+            ><span class="hint-touch"
+              >Chạm vào từng ô số liệu để xem biểu đồ so sánh với năm
+              trước.</span
+            >
           </p>
           <div class="callout">
             Tỷ lệ nạn nhân đã giảm nhưng thiệt hại vẫn ở mức hàng nghìn tỷ đồng
@@ -650,8 +655,12 @@
             </div>
           </div>
           <p class="hint">
-            Di chuột (hoặc nhấn Tab) vào từng thẻ để xem ví dụ thực tế. Mức độ
-            do nhóm đánh giá, không phải số liệu thống kê.
+            <span class="hint-hover"
+              >Di chuột (hoặc nhấn Tab) vào từng thẻ để xem ví dụ thực tế.</span
+            ><span class="hint-touch"
+              >Chạm vào từng thẻ để xem ví dụ thực tế.</span
+            >
+            Mức độ do nhóm đánh giá, không phải số liệu thống kê.
           </p>
           <div class="callout">
             <strong>Điểm chung:</strong> luôn thúc giục bạn làm ngay, luôn đòi
@@ -718,10 +727,7 @@
         <div class="container">
           <div class="section-head">
             <h2>Sản phẩm của nhóm</h2>
-            <p>
-              Đây là một số sản phầm của nhóm mình để giúp hiểu hơn về chủ đề
-              này.
-            </p>
+            <p>Đây là 1 só sản phầm của nhóm để giúp các bạn hiểu hơn</p>
           </div>
 
           <article class="feature">
@@ -1033,11 +1039,136 @@
           <p>Hãy chia sẻ trang này cho một người bạn của bạn.</p>
         </div>
       </section>
+
+      <!-- 6. ĐÁNH GIÁ TRANG WEB -->
+      <section class="section" id="danh-gia">
+        <div class="container">
+          <div class="section-head">
+            <h2>Đánh giá trang web</h2>
+            <p>
+              Cho nhóm biết cảm nhận của bạn để Nhóm 8 hoàn thiện hơn. Đánh giá
+              được gửi ẩn danh.
+            </p>
+          </div>
+          <form class="rate-card" id="rateForm" novalidate>
+            <div class="rate-row rate-overall">
+              <div>
+                <strong>Đánh giá chung</strong
+                ><small>Bạn thấy trang web này thế nào?</small>
+              </div>
+              <div class="stars" data-name="overall"></div>
+            </div>
+            <div class="rate-row">
+              <span>Giao diện</span>
+              <div class="stars" data-name="giaoDien"></div>
+            </div>
+            <div class="rate-row">
+              <span>Tốc độ</span>
+              <div class="stars" data-name="tocDo"></div>
+            </div>
+            <div class="rate-row">
+              <span>Dễ sử dụng</span>
+              <div class="stars" data-name="deSuDung"></div>
+            </div>
+            <div class="rate-row">
+              <span>Tính năng</span>
+              <div class="stars" data-name="tinhNang"></div>
+            </div>
+            <fieldset class="rate-feat">
+              <legend>Nội dung bạn thích nhất (chọn nhiều)</legend>
+              <div class="chips">
+                <label class="chip"
+                  ><input
+                    type="checkbox"
+                    name="feat"
+                    value="Số liệu thực trạng"
+                  /><span>Số liệu thực trạng</span></label
+                ><label class="chip"
+                  ><input
+                    type="checkbox"
+                    name="feat"
+                    value="Các chiêu trò phổ biến"
+                  /><span>Các chiêu trò phổ biến</span></label
+                ><label class="chip"
+                  ><input
+                    type="checkbox"
+                    name="feat"
+                    value="Cách phòng tránh"
+                  /><span>Cách phòng tránh</span></label
+                ><label class="chip"
+                  ><input type="checkbox" name="feat" value="Game" /><span
+                    >Game</span
+                  ></label
+                ><label class="chip"
+                  ><input type="checkbox" name="feat" value="Video" /><span
+                    >Video</span
+                  ></label
+                ><label class="chip"
+                  ><input type="checkbox" name="feat" value="Poster" /><span
+                    >Poster</span
+                  ></label
+                ><label class="chip"
+                  ><input type="checkbox" name="feat" value="Khảo sát" /><span
+                    >Khảo sát</span
+                  ></label
+                >
+              </div>
+            </fieldset>
+            <label class="rate-note"
+              >Góp ý thêm (không bắt buộc)<textarea
+                name="comment"
+                maxlength="300"
+                rows="3"
+                placeholder="Bạn muốn nhóm cải thiện điều gì?"
+              ></textarea>
+            </label>
+            <p class="rate-msg" id="rateMsg" role="status"></p>
+            <button class="btn" type="submit">Gửi đánh giá</button>
+          </form>
+          <div class="rate-card rate-thanks" id="rateThanks" hidden>
+            <div class="thanks-ico" aria-hidden="true">★</div>
+            <h3>Cảm ơn bạn đã đánh giá!</h3>
+            <p>Ý kiến của bạn giúp Nhóm 8 hoàn thiện trang web hơn.</p>
+            <button class="btn ghost" type="button" id="rateAgain">
+              Gửi đánh giá khác
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
-      © 2026 Nhóm 8 · Đề tài: Cảnh báo lừa đảo đối với sinh viên
+      © 2026 Nhóm 8 · Đề tài: Cảnh báo lừa đảo đối với sinh viên<button
+        class="admin-trigger"
+        id="adminOpen"
+        type="button"
+        aria-label="Khu vực quản trị"
+        title="Quản trị"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="3" y="11" width="18" height="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      </button>
     </footer>
+
+    <dialog
+      id="adminDlg"
+      class="adm-dlg"
+      aria-label="Bảng điều khiển Admin"
+    ></dialog>
+    <script src="site-data.js"></script>
+    <script src="feedback.js"></script>
 
     <script>
       /* Tạo các chấm người dùng cho biểu đồ tỷ lệ nạn nhân */
@@ -1093,6 +1224,43 @@
           { threshold: 0.4 },
         );
         nums.forEach((n) => io.observe(n));
+      })();
+    </script>
+    <script>
+      /* Điện thoại: các thẻ hiện dần khi cuộn tới */
+      (function () {
+        if (
+          matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          !("IntersectionObserver" in window)
+        )
+          return;
+        if (
+          matchMedia(
+            "(min-width: 901px) and (hover: hover) and (pointer: fine)",
+          ).matches
+        )
+          return;
+        var els = document.querySelectorAll(
+          ".section .tile, .feature, .rule, .steps li, .callout, .rate-card",
+        );
+        var io = new IntersectionObserver(
+          function (list) {
+            list.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+              setTimeout(function () {
+                e.target.style.transitionDelay = "";
+              }, 1100);
+            });
+          },
+          { threshold: 0.12 },
+        );
+        els.forEach(function (el, i) {
+          el.classList.add("reveal");
+          el.style.transitionDelay = (i % 3) * 90 + "ms";
+          io.observe(el);
+        });
       })();
     </script>
     <script>
@@ -1235,6 +1403,43 @@
             setActive(null);
         });
 
+        /* Điện thoại / máy tính bảng: chạm để mở, chạm lần nữa để đóng (mở một thẻ tại một thời điểm) */
+        const isTouch = () => box.classList.contains("touch");
+        function toggleTouch(card) {
+          const wasOpen = card.classList.contains("is-active");
+          cards.forEach((c) => {
+            c.classList.remove("is-active");
+            c.setAttribute("aria-expanded", "false");
+          });
+          if (wasOpen) return;
+          card.classList.add("is-active");
+          card.setAttribute("aria-expanded", "true");
+          setTimeout(() => {
+            const r = card.getBoundingClientRect();
+            if (r.top < 100 || r.bottom > innerHeight - 10)
+              scrollTo({ top: scrollY + r.top - 104, behavior: "smooth" });
+          }, 560);
+        }
+        box.addEventListener("click", (e) => {
+          if (!isTouch()) return;
+          const c = e.target.closest(".risk");
+          if (!c) return;
+          if (
+            c.classList.contains("is-active") &&
+            e.target.closest(".risk-more")
+          )
+            return;
+          toggleTouch(c);
+        });
+        box.addEventListener("keydown", (e) => {
+          if (!isTouch() || (e.key !== "Enter" && e.key !== " ")) return;
+          const c = e.target.closest(".risk");
+          if (c) {
+            e.preventDefault();
+            toggleTouch(c);
+          }
+        });
+
         function enable() {
           box.classList.add("dynamic");
           measure();
@@ -1250,7 +1455,23 @@
           active = prev = null;
         }
         function sync() {
-          if (!mq.matches) return disable();
+          if (!mq.matches) {
+            if (isDynamic()) disable();
+            if (!isTouch()) {
+              box.classList.add("touch");
+              cards.forEach(function (c) {
+                c.setAttribute("aria-expanded", "false");
+              });
+            }
+            return;
+          }
+          if (isTouch()) {
+            box.classList.remove("touch");
+            cards.forEach(function (c) {
+              c.classList.remove("is-active");
+              c.removeAttribute("aria-expanded");
+            });
+          }
           if (!isDynamic()) return enable();
           box.classList.remove("ready");
           measure();
