@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="pg pg-game">
 
 <header class="site-header">
   <nav class="container nav" aria-label="Điều hướng chính">
@@ -25,8 +25,39 @@
 
 <main class="container detail">
   <a class="back" href="index.html#san-pham">← Về danh sách sản phẩm</a>
-  <h1>Công an chống lừa đảo</h1>
-  <p class="lead">Game tương tác giúp bạn luyện phản xạ trước các chiêu lừa đảo, chơi ngay trên trình duyệt.</p>
+  <section class="pg-hero">
+    <div class="pg-hero-text"><span class="pg-chip">NHIỆM VỤ 01 · GAME</span>
+      <h1>Công an chống lừa đảo</h1>
+      <p class="lead">Game tương tác giúp bạn luyện phản xạ trước các chiêu lừa đảo, chơi ngay trên trình duyệt.</p></div>
+    <div class="thumb thumb-art">
+          <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" role="img" focusable="false" aria-label="Khiên công an chặn tin nhắn lừa đảo trên điện thoại">
+            <defs>
+              <linearGradient id="g-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9ece0"/><stop offset="1" stop-color="#a6cbb6"/></linearGradient>
+              <linearGradient id="g-sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7a5c"/><stop offset="1" stop-color="#184a37"/></linearGradient>
+              <filter id="g-sd" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#0e2a1f" flood-opacity=".28"/></filter>
+            </defs>
+            <rect width="800" height="600" fill="url(#g-bg)"/>
+            <circle cx="90" cy="90" r="150" fill="#fff" opacity=".18"/><circle cx="730" cy="540" r="190" fill="#fff" opacity=".16"/>
+            <path class="a spark s1" d="M690 120l7 18 18 7-18 7-7 18-7-18-18-7 18-7z" fill="#fff"/>
+            <path class="a spark s2" d="M120 470l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#fff"/>
+            <g transform="rotate(-6 275 300)">
+              <rect x="150" y="80" width="250" height="430" rx="38" fill="#17271f"/>
+              <rect x="164" y="98" width="222" height="394" rx="28" fill="#fff"/>
+              <rect x="240" y="106" width="70" height="10" rx="5" fill="#17271f"/>
+              <rect x="164" y="128" width="222" height="44" fill="#eef3ee"/><circle cx="190" cy="150" r="12" fill="#a6cbb6"/><rect x="212" y="141" width="96" height="10" rx="5" fill="#9bb3a4"/>
+              <g class="a g-m1"><rect x="180" y="205" width="196" height="76" rx="14" fill="#fbe6e1"/><text x="194" y="236" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700" fill="#b4483a">Nộp cọc 200k</text><text x="194" y="262" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#b4483a">ngay trong 10 phút!</text></g>
+              <g class="a g-m2"><rect x="180" y="300" width="196" height="76" rx="14" fill="#fbe6e1"/><text x="194" y="331" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700" fill="#b4483a">Trúng thưởng!</text><text x="194" y="357" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#b4483a">Nhận 50 triệu ngay</text></g>
+              <rect x="180" y="440" width="190" height="34" rx="17" fill="#eef3ee"/>
+            </g>
+            <g class="a g-shield">
+              <path d="M565 150L685 196V318C685 398 630 454 565 486 500 454 445 398 445 318V196Z" fill="url(#g-sh)" stroke="#c9a96a" stroke-width="11" stroke-linejoin="round"/>
+              <polygon points="565,206 574,228 598,230 580,246 586,269 565,256 544,269 550,246 532,230 556,228" fill="#c9a96a"/>
+              <path class="chk" pathLength="1" d="M512 336L551 375 620 296" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="a g-stamp"><rect x="470" y="505" width="190" height="52" rx="26" fill="#1f5a43"/><text x="565" y="540" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" fill="#fff" letter-spacing="1">ĐÃ CHẶN ✓</text></g>
+          </svg>
+        </div>
+  </section>
 
   <!-- Khung chơi game: nhúng trực tiếp từ Netlify -->
   <div class="media game-frame" id="gameFrame">
@@ -70,5 +101,18 @@
   }
 </script>
 <script src="site-data.js"></script>
+<script>
+/* Cảnh minh họa chạy hoạt hình và nghiêng nhẹ theo chuột */
+(function () {
+  document.querySelectorAll(".thumb-art").forEach(function (x) {
+    x.classList.add("play");
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var raf = 0, px = 0, py = 0;
+    var paint = function () { raf = 0; x.style.setProperty("--ry", px * 14 + "deg"); x.style.setProperty("--rx", -py * 14 + "deg"); };
+    x.addEventListener("pointermove", function (e) { var r = x.getBoundingClientRect(); px = (e.clientX - r.left) / r.width - .5; py = (e.clientY - r.top) / r.height - .5; if (!raf) raf = requestAnimationFrame(paint); });
+    x.addEventListener("pointerleave", function () { px = py = 0; if (!raf) raf = requestAnimationFrame(paint); });
+  });
+})();
+</script>
 </body>
 </html>

@@ -165,7 +165,8 @@
       SD.adminStats(session.u, session.p).then(function (r) { if (r.ok) { session.data = r.data; render(); } else { session = null; renderLogin(r.error); } });
     }
   });
-  var open = function () { dlg.showModal(); if (session) render(); else renderLogin(); };
+  var open = function () { document.body.classList.add("modal-open"); dlg.showModal(); if (session) render(); else renderLogin(); };
+  dlg.addEventListener("close", function () { document.body.classList.remove("modal-open"); });
   openBtn.addEventListener("click", open);
   document.addEventListener("keydown", function (e) { if (e.ctrlKey && e.shiftKey && (e.key === "A" || e.key === "a")) { e.preventDefault(); open(); } });
 })();
