@@ -424,3 +424,297 @@ body:has(dialog[open]) { overflow: hidden; }
 .nav { min-width: 0; }
 .nav ul { min-width: 0; max-width: 100%; }
 body { overflow-x: clip; }
+
+/* ===================================================================
+   DIỆN MẠO "LÁ CHẮN SỐ": trang trí theo chủ đề phòng chống lừa đảo
+   (chỉ là lớp trang trí, nội dung và tính năng giữ nguyên)
+   =================================================================== */
+body { background-image: radial-gradient(rgba(var(--accent-rgb), .07) 1.2px, transparent 1.3px); background-size: 24px 24px; }
+.section.alt { background-image: radial-gradient(rgba(var(--accent-rgb), .09) 1.2px, transparent 1.3px); background-size: 24px 24px; }
+
+/* Thương hiệu có biểu tượng lá chắn */
+.brand::before { content: ""; display: inline-block; width: 1.45em; height: 1.45em; margin-right: .5rem; vertical-align: -.35em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='%231f5a43'/%3E%3Cpath d='m9 12 2 2 4-4' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* Hero: lá chắn mờ, sóng cuối trang, tin nhắn lừa đảo bay lơ lửng */
+.hero { position: relative; overflow: hidden; background: radial-gradient(900px 480px at 50% -5%, var(--glow), transparent 70%), radial-gradient(520px 380px at 92% 92%, rgba(var(--accent-rgb), .09), transparent 70%), radial-gradient(420px 320px at 4% 80%, rgba(var(--warn-rgb), .07), transparent 70%); }
+.hero::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(640px, 92vw); aspect-ratio: 1; translate: -50% -50%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5a43' stroke-width='.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E") center / contain no-repeat; opacity: .09; pointer-events: none; }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 64px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0 40c240 50 480 50 720 20s480-40 720 0v20H0z' fill='%23f4f7f4'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat; pointer-events: none; }
+.hero-inner { position: relative; z-index: 1; }
+.hero h1 mark { color: inherit; padding: 0 .12em; background: linear-gradient(transparent 62%, rgba(var(--warn-rgb), .32) 62% 90%, transparent 90%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.hero-art { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.bub { position: absolute; display: flex; align-items: center; gap: .55rem; max-width: 250px; padding: .65rem 1rem .65rem .65rem; border-radius: 18px 18px 18px 4px; background: #fff; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(23, 39, 31, .13); font-size: .85rem; font-weight: 600; line-height: 1.35; animation: bob 7s ease-in-out infinite alternate; }
+.bub i { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 800; color: #fff; background: var(--danger); }
+.bub.safe { background: #f1faf5; border-color: rgba(var(--accent-rgb), .4); border-radius: 18px 18px 4px 18px; }
+.bub.safe i { background: var(--accent); }
+.bub1 { top: 15%; left: 5%; rotate: -4deg; }
+.bub2 { top: 22%; right: 4%; rotate: 3deg; animation-delay: -2s; }
+.bub3 { bottom: 22%; left: 8%; rotate: 2deg; animation-delay: -4s; }
+.bub4 { bottom: 15%; right: 7%; rotate: -3deg; animation-delay: -1s; }
+@keyframes bob { from { transform: translateY(-9px); } to { transform: translateY(9px); } }
+@media (max-width: 1180px) { .bub2, .bub3 { display: none; } .bub1 { top: 1.4rem; left: 1.2rem; } .bub4 { bottom: 4.6rem; right: 1.2rem; } }
+@media (max-width: 720px) { .hero { padding: 6.5rem 0 7.5rem; } .bub { max-width: 205px; font-size: .76rem; } .bub1 { top: 1rem; left: .8rem; } .bub4 { right: .8rem; } }
+
+/* Tiêu đề mục: thanh nhấn gradient */
+.section-head h2::before { content: ""; display: block; width: 52px; height: 5px; border-radius: 4px; margin-bottom: .9rem; background: linear-gradient(90deg, var(--accent), #7fc3a4); }
+
+/* Băng cảnh báo (chiêu trò) chuyển sang băng an toàn (phòng tránh) */
+#chieu-tro, #phong-tranh { position: relative; }
+#chieu-tro::before, #phong-tranh::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 12px; }
+#chieu-tro::before { background: repeating-linear-gradient(-45deg, rgba(var(--warn-rgb), .55) 0 14px, #fff6f2 14px 28px); }
+#phong-tranh::before { background: repeating-linear-gradient(-45deg, rgba(var(--accent-rgb), .6) 0 14px, #f1faf5 14px 28px); }
+#chieu-tro, #phong-tranh { padding-top: calc(4.5rem + 12px); }
+
+/* Thẻ: vạch gradient phía trên, đổ bóng mềm */
+.tile { position: relative; overflow: hidden; }
+.tile::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--accent), #8fd0b0); opacity: .9; }
+.stat-num { background: linear-gradient(135deg, var(--accent), #3f9a76); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat-num .pre { color: var(--muted); -webkit-text-fill-color: var(--muted); }
+
+/* 4 nguyên tắc: số thứ tự mờ làm họa tiết */
+.rules { counter-reset: rl; }
+.rule { position: relative; overflow: hidden; counter-increment: rl; box-shadow: 0 1px 3px rgba(23, 39, 31, .07); }
+.rule::after { content: "0" counter(rl); position: absolute; right: .9rem; top: .1rem; font-size: 3.6rem; font-weight: 800; line-height: 1; color: rgba(var(--accent-rgb), .1); }
+
+/* Sản phẩm: quầng sáng và khung ảnh lệch */
+.feature > * { position: relative; z-index: 1; }
+.feature::before { content: ""; position: absolute; right: -90px; top: -90px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--accent-rgb), .13), transparent 70%); }
+.thumb { box-shadow: 0 18px 40px rgba(23, 39, 31, .16), 10px 10px 0 rgba(var(--accent-rgb), .1); }
+
+/* Nút bấm */
+.btn { background: linear-gradient(135deg, var(--accent), #2f7a5c); box-shadow: 0 6px 16px rgba(var(--accent-rgb), .28); }
+.btn:hover { background: linear-gradient(135deg, var(--accent-hover), #3a8f6c); box-shadow: 0 10px 22px rgba(var(--accent-rgb), .34); }
+.btn.ghost { background: transparent; box-shadow: none; }
+.btn.ghost:hover { background: var(--panel); }
+
+/* Thông điệp: dấu trích dẫn lớn và các vòng lan tỏa như tín hiệu bảo vệ */
+.message { position: relative; overflow: hidden; }
+.message .container { position: relative; z-index: 1; }
+.message::before { content: "\201C"; position: absolute; top: -2rem; left: 50%; translate: -50% 0; font-size: 17rem; line-height: 1; font-weight: 800; color: rgba(var(--accent-rgb), .1); pointer-events: none; }
+.message::after { content: ""; position: absolute; left: 50%; top: 50%; width: 920px; max-width: 160vw; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 74px, rgba(var(--accent-rgb), .08) 75px 76px); pointer-events: none; animation: ripple 8s ease-in-out infinite alternate; }
+@keyframes ripple { from { transform: scale(.92); opacity: .6; } to { transform: scale(1.06); opacity: 1; } }
+
+.site-footer { border-top: 3px solid transparent; border-image: linear-gradient(90deg, var(--accent), #8fd0b0, var(--accent)) 1; }
+
+@media (prefers-reduced-motion: reduce) { .bub, .message::after { animation: none; } }
+
+/* ===================================================================
+   TRANG DƯỚI: mỗi mục một "không khí" riêng, số mục lớn, họa tiết và chuyển động
+   =================================================================== */
+:root { --dots: radial-gradient(rgba(var(--accent-rgb), .08) 1.2px, transparent 1.3px) 0 0 / 24px 24px; }
+body { counter-reset: sec; }
+.section { counter-increment: sec; }
+.section > .container { position: relative; }
+.section > .container::before { content: "0" counter(sec); position: absolute; right: 0; top: -1.8rem; z-index: 0; font-size: clamp(4.5rem, 10vw, 7.5rem); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1.5px rgba(var(--accent-rgb), .22); pointer-events: none; }
+.section-head { position: relative; z-index: 1; }
+
+/* Mỗi mục có màu nền và họa tiết riêng */
+#thuc-trang { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 80' fill='none' stroke='%231f5a43' stroke-opacity='.2' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 40h70l12-6 12 6 14-32 18 64 14-32h40l12-6 12 6 12-22 14 44 12-22h78'/%3E%3C/svg%3E") no-repeat right 4% top 4rem / 360px auto, linear-gradient(180deg, transparent 0, #e4f1ea 100%), var(--dots), var(--bg); }
+#muc-tieu { background: radial-gradient(circle at 92% 20%, rgba(var(--accent-rgb), .13), transparent 42%), repeating-radial-gradient(circle at 92% 20%, transparent 0 58px, rgba(var(--accent-rgb), .08) 59px 60px), linear-gradient(180deg, #e4f1ea, #eef6f1); }
+#chieu-tro { background: radial-gradient(rgba(var(--warn-rgb), .11) 1.2px, transparent 1.3px) 0 0 / 24px 24px, linear-gradient(180deg, #fff3ee 0, #fffaf8 55%, var(--bg) 100%); }
+#phong-tranh { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5a43' stroke-opacity='.12' stroke-width='.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E") no-repeat right 3% bottom 2.5rem / 300px auto, var(--dots), linear-gradient(180deg, #dff0e6 0, #eef6f1 100%); }
+#san-pham { background: radial-gradient(520px 380px at 0% 8%, rgba(var(--accent-rgb), .11), transparent 70%), radial-gradient(560px 400px at 100% 72%, rgba(201, 162, 74, .14), transparent 70%), var(--dots), var(--bg); }
+#danh-gia { background: radial-gradient(640px 420px at 50% 0, rgba(240, 180, 41, .15), transparent 70%), var(--dots), var(--bg); }
+
+/* Mỗi thẻ có màu nhấn riêng */
+.tile { --ic: var(--accent-rgb); }
+.tile::before { background: linear-gradient(90deg, rgb(var(--ic)), rgba(var(--ic), .4)); }
+#risks .risk:nth-child(1) { --ic: 217, 119, 91; }
+#risks .risk:nth-child(2) { --ic: 201, 162, 74; }
+#risks .risk:nth-child(3) { --ic: 79, 143, 179; }
+#risks .risk:nth-child(4) { --ic: 138, 111, 184; }
+#stats .risk:nth-child(2) { --ic: 217, 119, 91; }
+#stats .risk:nth-child(3) { --ic: 79, 143, 179; }
+#stats .risk:nth-child(4) { --ic: 201, 162, 74; }
+#muc-tieu .tile:nth-child(2) { --ic: 79, 143, 179; }
+#muc-tieu .tile:nth-child(3) { --ic: 201, 162, 74; }
+.tile .icon { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 20px; font-size: 1.9rem; margin-bottom: 1rem; background: linear-gradient(135deg, rgba(var(--ic), .2), rgba(var(--ic), .06)); box-shadow: inset 0 0 0 1px rgba(var(--ic), .28); }
+#risks .risk:hover, #risks .risk.is-active { border-color: rgb(var(--ic)); }
+
+/* Mục tiêu: ba bước nối nhau bằng mũi tên */
+#muc-tieu .tile { overflow: visible; }
+#muc-tieu .tile::before { border-radius: 16px 16px 0 0; }
+#muc-tieu .tile:not(:last-child)::after { content: "→"; position: absolute; right: -1.7rem; top: 50%; z-index: 2; width: 2.2rem; height: 2.2rem; margin-top: -1.1rem; display: grid; place-items: center; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--accent); font-weight: 700; box-shadow: 0 4px 12px rgba(23, 39, 31, .12); }
+@media (max-width: 899px) { #muc-tieu .tile:not(:last-child)::after { display: none; } }
+
+/* Phòng tránh: dấu tích, số mờ, hộp "nếu đã lỡ bị lừa" như báo động */
+.rule { transition: transform .25s ease, box-shadow .25s ease; }
+.rule:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(var(--accent-rgb), .2); }
+.rule b::before { content: "✓"; display: inline-grid; place-items: center; width: 1.55rem; height: 1.55rem; margin-right: .55rem; border-radius: 50%; background: var(--accent); color: #fff; font-size: .8rem; vertical-align: .08em; }
+.steps-title { display: inline-flex; align-items: center; gap: .65rem; padding: .55rem 1.1rem; border-radius: 999px; background: rgba(var(--warn-rgb), .12); color: var(--danger); }
+.steps-title::before { content: ""; width: .7rem; height: .7rem; border-radius: 50%; background: var(--danger); animation: alarm 1.6s ease-out infinite; }
+@keyframes alarm { 0% { box-shadow: 0 0 0 0 rgba(var(--warn-rgb), .6); } 100% { box-shadow: 0 0 0 .9rem rgba(var(--warn-rgb), 0); } }
+.steps { position: relative; }
+.steps::before { content: ""; position: absolute; left: 2rem; right: 2rem; top: 1.9rem; border-top: 2px dashed rgba(var(--accent-rgb), .4); }
+.steps li { position: relative; z-index: 1; transition: transform .25s ease, box-shadow .25s ease; }
+.steps li:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(var(--accent-rgb), .18); }
+.steps li::before { box-shadow: 0 0 0 5px rgba(var(--accent-rgb), .15); }
+@media (max-width: 900px) { .steps::before { display: none; } }
+
+/* Sản phẩm: mỗi hàng một màu, chữ rỗng lớn làm họa tiết */
+article.feature:nth-of-type(1) { --fc: 31, 90, 67; }
+article.feature:nth-of-type(2) { --fc: 168, 128, 44; }
+article.feature:nth-of-type(3) { --fc: 168, 85, 100; }
+article.feature:nth-of-type(4) { --fc: 60, 120, 160; }
+.feature { transition: transform .3s ease, box-shadow .3s ease, border-color .3s; }
+.feature:hover { transform: translateY(-5px); box-shadow: 0 22px 48px rgba(var(--fc, var(--accent-rgb)), .16); border-color: rgba(var(--fc, var(--accent-rgb)), .55); }
+.feature::before { background: radial-gradient(circle, rgba(var(--fc, var(--accent-rgb)), .16), transparent 70%); }
+.feature .tag { color: rgb(var(--fc, var(--accent-rgb))); border-color: rgb(var(--fc, var(--accent-rgb))); background: rgba(var(--fc, var(--accent-rgb)), .08); }
+.feature li::marker { color: rgb(var(--fc, var(--accent-rgb))); }
+.thumb { box-shadow: 0 18px 40px rgba(23, 39, 31, .16), 10px 10px 0 rgba(var(--fc, var(--accent-rgb)), .14); }
+.feature::after { content: attr(data-label); position: absolute; left: 1.6rem; bottom: -1.3rem; z-index: 0; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 800; line-height: 1; letter-spacing: .05em; color: transparent; -webkit-text-stroke: 1.5px rgba(var(--fc, var(--accent-rgb)), .18); pointer-events: none; white-space: nowrap; }
+.feature.reverse::after { left: auto; right: 1.6rem; }
+
+/* Đánh giá: ngôi sao lớn làm họa tiết */
+.rate-card { position: relative; overflow: hidden; }
+.rate-card::before { content: "★"; position: absolute; right: -1rem; top: -2.6rem; z-index: 0; font-size: 12rem; line-height: 1; color: rgba(240, 180, 41, .14); pointer-events: none; }
+.rate-card > * { position: relative; z-index: 1; }
+
+/* ===================================================================
+   SẢN PHẨM: màn hình minh họa có hoạt hình, thẻ "nhiệm vụ" kiểu game
+   =================================================================== */
+#san-pham { counter-reset: ms; }
+.feature { counter-increment: ms; grid-template-columns: 1fr 1.05fr; }
+.feature-text::before { content: "NHIỆM VỤ 0" counter(ms); display: block; margin-bottom: .55rem; font-size: .7rem; font-weight: 800; letter-spacing: .16em; color: rgba(var(--fc, var(--accent-rgb)), .85); }
+.feature .btn::after { content: " →"; display: inline-block; transition: transform .2s; }
+.feature .btn:hover::after { transform: translateX(5px); }
+
+.thumb-art { position: relative; perspective: 900px; border: 6px solid #fff; border-radius: 24px; background: #fff; overflow: hidden; cursor: pointer; transition: rotate .4s ease, box-shadow .3s; }
+.feature:nth-of-type(odd) .thumb-art { rotate: 1.6deg; }
+.feature:nth-of-type(even) .thumb-art { rotate: -1.6deg; }
+.feature:hover .thumb-art { rotate: 0deg; }
+.thumb-art svg { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .18s ease-out; border-radius: 16px; }
+.thumb-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .4) 50%, transparent 60%); transform: translateX(-130%); transition: transform .9s ease; }
+.thumb-art:hover::after { transform: translateX(130%); }
+.thumb-art .a { transform-box: fill-box; transform-origin: center; }
+
+/* Cảnh game: tin nhắn lừa đảo bay vào rồi bị khiên chặn lại */
+.play .g-m1 { animation: g-m1 6.5s ease-in-out infinite; }
+.play .g-m2 { animation: g-m2 6.5s ease-in-out infinite; }
+.play .g-shield { animation: g-shield 6.5s cubic-bezier(.3, 1.4, .5, 1) infinite; }
+.play .chk { stroke-dasharray: 1; animation: g-chk 6.5s ease-in-out infinite; }
+.play .g-stamp { animation: g-stamp 6.5s ease-in-out infinite; }
+.chk { stroke-dasharray: 1; stroke-dashoffset: 0; }
+@keyframes g-m1 { 0%, 6% { opacity: 0; transform: translateX(80px); } 14%, 48% { opacity: 1; transform: none; } 56% { opacity: .2; transform: translateX(-8px); } 90% { opacity: .2; } 97%, 100% { opacity: 0; transform: translateX(80px); } }
+@keyframes g-m2 { 0%, 18% { opacity: 0; transform: translateX(80px); } 26%, 48% { opacity: 1; transform: none; } 56% { opacity: .2; transform: translateX(-8px); } 90% { opacity: .2; } 97%, 100% { opacity: 0; transform: translateX(80px); } }
+@keyframes g-shield { 0%, 38% { opacity: 0; transform: translateX(110px) scale(.6); } 50% { opacity: 1; transform: scale(1.1); } 56%, 90% { opacity: 1; transform: scale(1); } 97%, 100% { opacity: 0; transform: scale(.85); } }
+@keyframes g-chk { 0%, 50% { stroke-dashoffset: 1; } 62%, 90% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 1; } }
+@keyframes g-stamp { 0%, 62% { opacity: 0; transform: translateY(26px) scale(.8); } 70% { opacity: 1; transform: scale(1.06); } 74%, 90% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; transform: translateY(14px); } }
+.play .spark { animation: twinkle 2.4s ease-in-out infinite alternate; }
+.play .spark.s2 { animation-delay: -1.2s; }
+@keyframes twinkle { from { opacity: .25; transform: scale(.6) rotate(0); } to { opacity: 1; transform: scale(1.15) rotate(30deg); } }
+
+/* Cảnh video: vòng đếm ngược 10 giây và thanh tiến độ, tiền bay đi */
+.play .v-ring { animation: v-ring 5s linear infinite; }
+.play .v-bar { transform-origin: left center; animation: v-bar 5s linear infinite; }
+.play .v-play { animation: v-pulse 1.4s ease-in-out infinite; }
+.play .v-coin { animation: v-coin 4.5s ease-in infinite; }
+.play .v-coin.c2 { animation-delay: -1.5s; }
+.play .v-coin.c3 { animation-delay: -3s; }
+@keyframes v-ring { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 616; } }
+@keyframes v-bar { from { transform: scaleX(.01); } to { transform: scaleX(1); } }
+@keyframes v-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.14); } }
+@keyframes v-coin { 0% { opacity: 0; transform: translateY(30px) rotate(0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(-150px) rotate(240deg); } }
+
+/* Cảnh poster: ổ khóa đóng lại, mã OTP bị che đi, ánh sáng quét ngang */
+.play .p-card { animation: p-wobble 5s ease-in-out infinite alternate; }
+.play .p-shackle { animation: p-lock 5s ease-in-out infinite; }
+.play .dg { animation: p-dg 5s ease-in-out infinite; }
+.play .dt { animation: p-dt 5s ease-in-out infinite; }
+.play .p-shine { animation: p-shine 5s ease-in-out infinite; }
+.dt { opacity: 1; } .dg { opacity: 0; }
+@keyframes p-wobble { from { transform: rotate(-1.6deg); } to { transform: rotate(1.6deg); } }
+@keyframes p-lock { 0%, 25% { transform: translateY(-26px); } 45%, 90% { transform: translateY(0); } 100% { transform: translateY(-26px); } }
+@keyframes p-dg { 0%, 30% { opacity: 1; } 42%, 92% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes p-dt { 0%, 30% { opacity: 0; } 42%, 92% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes p-shine { 0%, 45% { transform: translateX(-200px) skewX(-14deg); } 70%, 100% { transform: translateX(520px) skewX(-14deg); } }
+
+/* Cảnh khảo sát: bút tích chọn từng mục */
+.play .s-pencil { animation: s-pen 6s ease-in-out infinite; }
+.play .chk.c1 { stroke-dasharray: 1; animation: s-c1 6s ease-in-out infinite; }
+.play .chk.c2 { stroke-dasharray: 1; animation: s-c2 6s ease-in-out infinite; }
+.play .chk.c3 { stroke-dasharray: 1; animation: s-c3 6s ease-in-out infinite; }
+.s-pencil { transform: translate(330px, 214px); }
+@keyframes s-pen { 0% { transform: translate(560px, 150px); } 7%, 18% { transform: translate(318px, 206px); } 28%, 40% { transform: translate(318px, 306px); } 50%, 62% { transform: translate(318px, 406px); } 74%, 90% { transform: translate(560px, 480px); } 100% { transform: translate(560px, 150px); } }
+@keyframes s-c1 { 0%, 8% { stroke-dashoffset: 1; } 18%, 92% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 1; } }
+@keyframes s-c2 { 0%, 30% { stroke-dashoffset: 1; } 40%, 92% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 1; } }
+@keyframes s-c3 { 0%, 52% { stroke-dashoffset: 1; } 62%, 92% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 1; } }
+
+@media (max-width: 900px) { .feature { grid-template-columns: 1fr; } .thumb-art { rotate: 0deg !important; } }
+@media (prefers-reduced-motion: reduce) { .thumb-art *, .thumb-art::after { animation: none !important; transition: none !important; } .thumb-art { rotate: 0deg !important; } }
+
+/* ===================================================================
+   HÌNH ĐỘNG THEO TỪNG MỤC + họa tiết trôi nhẹ + hạt bay ở phần Thông điệp
+   =================================================================== */
+.section { position: relative; overflow: hidden; --amb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='20' cy='30' r='3' fill='%231f5a43' fill-opacity='.2'/%3E%3Cpath d='M82 20v12M76 26h12M100 92v10M95 97h10' stroke='%231f5a43' stroke-opacity='.22' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='58' cy='88' r='2.5' fill='%231f5a43' fill-opacity='.18'/%3E%3C/svg%3E"); }
+#chieu-tro { --amb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M22 38l9 15H13zM92 84l8 14H84z' fill='%23c25a49' fill-opacity='.17'/%3E%3Ccircle cx='80' cy='26' r='3' fill='%23c25a49' fill-opacity='.2'/%3E%3Ccircle cx='46' cy='96' r='2.5' fill='%23c25a49' fill-opacity='.18'/%3E%3C/svg%3E"); }
+#phong-tranh { --amb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M15 36l6 6 12-14M86 92l5 5 10-12' fill='none' stroke='%231f5a43' stroke-opacity='.22' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='78' cy='28' r='3' fill='%231f5a43' fill-opacity='.18'/%3E%3C/svg%3E"); }
+.section::after { content: ""; position: absolute; inset: -120px; z-index: 0; pointer-events: none; background: var(--amb) 0 0 / 120px 120px; animation: drift 46s linear infinite; }
+@keyframes drift { to { transform: translate(120px, 120px); } }
+.section > .container { z-index: 1; }
+#chieu-tro::before, #phong-tranh::before { z-index: 2; }
+
+.sec-art { position: absolute; right: 0; top: .1rem; z-index: 2; width: min(330px, 34%); height: auto; overflow: visible; pointer-events: none; }
+#danh-gia .sec-art { width: min(250px, 26%); }
+@media (max-width: 1080px) { .sec-art, #danh-gia .sec-art { position: relative; display: block; width: min(300px, 78%); margin: 0 auto 1.2rem; top: auto; } }
+.sec-art .a { transform-box: fill-box; transform-origin: center; }
+
+/* Thực trạng: cột tăng dần, đường xu hướng vẽ lên, tiền rơi */
+.sa-b { transform-box: fill-box; transform-origin: 50% 100%; }
+.sa-line { stroke-dasharray: 1; }
+.play .sa-b { animation: sa-grow 4.6s cubic-bezier(.2, .8, .2, 1) infinite; animation-delay: var(--d); }
+.play .sa-line { animation: sa-draw 4.6s ease-in-out infinite; }
+.play .sa-dot { animation: sa-dot 4.6s ease-in-out infinite; }
+.play .sa-coin { animation: sa-coin 4.6s ease-in infinite; }
+@keyframes sa-grow { 0% { transform: scaleY(0); } 28%, 86% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+@keyframes sa-draw { 0%, 12% { stroke-dashoffset: 1; } 42%, 86% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 1; } }
+@keyframes sa-dot { 0%, 40% { opacity: 0; transform: scale(.3); } 48% { opacity: 1; transform: scale(1.5); } 58%, 86% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+@keyframes sa-coin { 0% { opacity: 0; transform: translateY(-8px); } 10% { opacity: 1; } 46% { opacity: 1; transform: translateY(150px) rotate(200deg); } 54%, 100% { opacity: 0; transform: translateY(150px) rotate(200deg); } }
+
+/* Mục tiêu: ba bước sáng lên lần lượt, tín hiệu lan tỏa */
+.play .sa-flow { animation: sa-flow 1.1s linear infinite; }
+.play .sa-node { animation: sa-node 4.8s ease-in-out infinite; }
+.play .sa-node.n2 { animation-delay: 1.6s; }
+.play .sa-node.n3 { animation-delay: 3.2s; }
+.sa-rip { opacity: 0; }
+.play .sa-rip { animation: sa-rip 2.4s ease-out infinite; }
+.play .sa-rip.r2 { animation-delay: 1.2s; }
+@keyframes sa-flow { to { stroke-dashoffset: -14; } }
+@keyframes sa-node { 0%, 100% { fill: #fff; transform: scale(1); } 8%, 26% { fill: #cfe8da; transform: scale(1.12); } 36% { fill: #fff; transform: scale(1); } }
+@keyframes sa-rip { 0% { opacity: .55; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+
+/* Chiêu trò: lưỡi câu đung đưa, tin nhắn nhử mồi nổi lên */
+.sa-sway { transform-origin: 160px -10px; }
+.play .sa-sway { animation: sa-sway 3.4s ease-in-out infinite alternate; }
+.play .sa-pop { animation: sa-pop 5.2s ease-in-out infinite; animation-delay: var(--d); }
+@keyframes sa-sway { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
+@keyframes sa-pop { 0%, 100% { opacity: 0; transform: translateY(14px) scale(.7); } 14%, 62% { opacity: 1; transform: none; } 80% { opacity: 0; transform: translateY(-12px); } }
+
+/* Phòng tránh: radar quét quanh lá chắn, dấu tích bật lên */
+.sa-sweep, .sa-spin { transform-origin: 160px 100px; }
+.play .sa-sweep { animation: sa-rot 4s linear infinite; }
+.play .sa-spin { animation: sa-rot 26s linear infinite reverse; }
+.play .sa-tick { animation: sa-tick 4s cubic-bezier(.3, 1.5, .5, 1) infinite; animation-delay: var(--d); }
+@keyframes sa-rot { to { transform: rotate(360deg); } }
+@keyframes sa-tick { 0%, 100% { opacity: 0; transform: scale(.3); } 12%, 70% { opacity: 1; transform: scale(1); } 88% { opacity: 0; transform: scale(.6); } }
+
+/* Sản phẩm: tay cầm chơi game, ngôi sao và trái tim bay lên */
+.play .sa-padbody { animation: sa-bob 3s ease-in-out infinite alternate; }
+.play .sa-btn { animation: sa-press 1.2s ease-in-out infinite; }
+.play .sa-btn.b2 { animation-delay: -.6s; }
+.play .sa-fl { animation: sa-fl 3.6s ease-in-out infinite; animation-delay: var(--d); }
+@keyframes sa-bob { from { transform: translateY(-6px) rotate(-3deg); } to { transform: translateY(5px) rotate(3deg); } }
+@keyframes sa-press { 0%, 100% { transform: scale(1); } 50% { transform: scale(.7); } }
+@keyframes sa-fl { 0% { opacity: 0; transform: translateY(26px) scale(.6); } 22%, 66% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-28px) scale(1.1); } }
+
+/* Đánh giá: năm sao sáng lên lần lượt rồi nở trái tim */
+.play .sa-star { animation: sa-star 5s ease-in-out infinite; animation-delay: var(--d); }
+.play .sa-heart { animation: sa-heart 5s ease-in-out infinite; }
+@keyframes sa-star { 0%, 100% { fill: #d7e0da; transform: scale(1); } 8% { fill: #f0b429; transform: scale(1.35); } 16%, 74% { fill: #f0b429; transform: scale(1); } 90% { fill: #d7e0da; } }
+@keyframes sa-heart { 0%, 52% { opacity: 0; transform: scale(.3); } 62% { opacity: 1; transform: scale(1.35); } 70%, 88% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+
+/* Thông điệp: hạt sao, dấu tích bay lên */
+.msg-fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.msg-fx i { position: absolute; bottom: -28px; font-style: normal; font-size: 1.3rem; color: rgba(var(--accent-rgb), .3); animation: rise-up var(--d, 10s) linear infinite; animation-delay: var(--w, 0s); }
+@keyframes rise-up { 0% { opacity: 0; transform: translateY(0) rotate(0); } 12%, 85% { opacity: 1; } 100% { opacity: 0; transform: translateY(-520px) rotate(200deg); } }
+
+@media (prefers-reduced-motion: reduce) { .section::after, .msg-fx i, .sec-art * { animation: none !important; } .sa-rip { opacity: 0; } }
