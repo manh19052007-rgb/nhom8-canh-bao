@@ -845,3 +845,18 @@ body.pg { background-image: radial-gradient(620px 420px at 100% 0, rgba(var(--fc
 .poster-dlg { padding: 0; border: 0; background: transparent; max-width: min(94vw, 720px); max-height: 94dvh; overflow: auto; }
 .poster-dlg::backdrop { background: rgba(10, 6, 8, .82); }
 .poster-dlg img { display: block; width: 100%; height: auto; border-radius: 12px; cursor: zoom-out; }
+
+/* Lượt xem và lượt tim */
+#statViews, #statLikes { font-weight: 700; font-variant-numeric: tabular-nums; }
+.like-wrap { display: inline-flex; align-items: center; gap: .7rem; }
+.like-btn { position: relative; display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(var(--fc, 31, 90, 67), .35); background: #fff; color: #b3c0b8; cursor: pointer; transition: transform .15s ease, background .2s, color .2s, border-color .2s; }
+.like-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.like-btn:hover { transform: scale(1.1); color: #e0475b; border-color: #e0475b; }
+.like-btn:active { transform: scale(.9); }
+.like-btn.liked { color: #e0475b; background: #fff0f2; border-color: #e0475b; }
+.like-btn.liked svg { fill: #e0475b; animation: heart-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes heart-pop { 0% { transform: scale(.4); } 60% { transform: scale(1.35); } 100% { transform: scale(1); } }
+.heart-fx { position: absolute; left: 50%; top: 50%; font-style: normal; font-size: .95rem; color: #e0475b; pointer-events: none; animation: heart-up .95s ease-out forwards; }
+@keyframes heart-up { 0% { opacity: 1; transform: translate(-50%, -50%) scale(.6); } 100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), var(--dy)) scale(1.25); } }
+.stat-note { margin: -1.2rem 0 1.4rem; font-size: .82rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .like-btn.liked svg { animation: none; } }

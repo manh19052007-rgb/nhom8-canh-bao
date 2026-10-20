@@ -21,6 +21,7 @@ var ADMIN_PASS = '123456';
 var MAX_VISITS_RETURNED = 3000;
 var MAX_RATINGS_RETURNED = 500;
 var H_VISITS = ['Thời gian', 'Mã khách', 'Trang', 'Thiết bị'];
+var H_LIKES = ['Thời gian', 'Mã khách', 'Trang', 'Giá trị'];
 var H_RATINGS = ['Thời gian', 'Mã khách', 'Chung', 'Giao diện', 'Tốc độ', 'Dễ sử dụng', 'Tính năng', 'Nội dung thích nhất', 'Góp ý', 'Thiết bị'];
 
 function doGet() { return json_({ ok: true, message: 'Backend Nhom 8 dang chay' }); }
@@ -38,11 +39,33 @@ function doPost(e) {
     var feats = (d.features || []).slice(0, 10).map(function (f) { return txt_(f, 60); }).join('|');
     return add_('Ratings', H_RATINGS, [new Date(), txt_(d.vid, 60), overall, num_(d.giaoDien), num_(d.tocDo), num_(d.deSuDung), num_(d.tinhNang), feats, txt_(d.comment, 300), txt_(d.device, 20)]);
   }
+  if (d.action === 'pageStats') return pageStats_(txt_(d.page, 40), txt_(d.vid, 60));
+  if (d.action === 'like') return like_(txt_(d.page, 40), txt_(d.vid, 60), d.on ? 1 : -1);
   if (d.action === 'stats') {
     if (d.user !== ADMIN_USER || d.pass !== ADMIN_PASS) return json_({ ok: false, error: 'auth' });
     return stats_();
   }
   return json_({ ok: false, error: 'unknown' });
+}
+
+// Lượt xem = số dòng trong sheet Visits của trang đó; lượt tim = số người có lần bấm gần nhất là "thích"
+function likeState_(page) {
+  var last = {}, by = {}, n = 0;
+  rows_('Likes', H_LIKES).forEach(function (r) { if (String(r[2]) === page) last[String(r[1])] = Number(r[3]); });
+  for (var k in last) { if (last[k] > 0) { n++; by[k] = 1; } }
+  return { count: n, byVid: by };
+}
+function pageStats_(page, vid) {
+  var views = rows_('Visits', H_VISITS).filter(function (r) { return String(r[2]) === page; }).length;
+  var lk = likeState_(page);
+  return json_({ ok: true, views: views, likes: lk.count, liked: !!lk.byVid[vid] });
+}
+function like_(page, vid, val) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try { sheet_('Likes', H_LIKES).appendRow([new Date(), vid, page, val]); } finally { lock.releaseLock(); }
+  var lk = likeState_(page);
+  return json_({ ok: true, likes: lk.count, liked: !!lk.byVid[vid] });
 }
 
 function stats_() {

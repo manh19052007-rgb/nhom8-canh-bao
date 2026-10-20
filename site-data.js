@@ -15,6 +15,7 @@
     visits: "n8_visits",
     ratings: "n8_ratings",
     rated: "n8_rated",
+    likes: "n8_likes",
   };
   var PAGES = {
     index: "Trang chủ",
@@ -104,12 +105,20 @@
       device: device(),
     };
     if (BACKEND_URL) {
-      if (!onDev)
-        post(
-          { action: "visit", vid: rec.vid, page: rec.page, device: rec.device },
-          { mode: "no-cors", keepalive: true },
-        ).catch(function () {});
-    } else push(K.visits, rec, 5000);
+      if (onDev) return Promise.resolve();
+      return post({
+        action: "visit",
+        vid: rec.vid,
+        page: rec.page,
+        device: rec.device,
+      })
+        .then(function (r) {
+          return r.json();
+        })
+        .catch(function () {});
+    }
+    push(K.visits, rec, 5000);
+    return Promise.resolve();
   }
   function submitRating(r) {
     r.vid = vid();
@@ -176,6 +185,121 @@
     });
   }
 
+  /* ---------- Lượt xem và lượt tim của từng trang sản phẩm ---------- */
+  function likedLocal() {
+    return !!read(K.likes, {})[pageName()];
+  }
+  function setLikedLocal(v) {
+    var m = read(K.likes, {});
+    if (v) m[pageName()] = 1;
+    else delete m[pageName()];
+    write(K.likes, m);
+  }
+  function pageStats() {
+    var page = pageName();
+    if (BACKEND_URL) {
+      return post({ action: "pageStats", page: page, vid: vid() })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (j) {
+          return j.ok
+            ? { views: j.views, likes: j.likes, liked: !!j.liked, local: false }
+            : null;
+        })
+        .catch(function () {
+          return null;
+        });
+    }
+    var v = read(K.visits, []).filter(function (x) {
+      return x.page === page;
+    }).length;
+    return Promise.resolve({
+      views: v,
+      likes: likedLocal() ? 1 : 0,
+      liked: likedLocal(),
+      local: true,
+    });
+  }
+  function toggleLike(want) {
+    if (BACKEND_URL) {
+      return post({ action: "like", page: pageName(), vid: vid(), on: want })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (j) {
+          return j.ok ? { likes: j.likes, liked: !!j.liked } : null;
+        })
+        .catch(function () {
+          return null;
+        });
+    }
+    setLikedLocal(want);
+    return Promise.resolve({ likes: want ? 1 : 0, liked: want });
+  }
+  function burst(btn) {
+    if (
+      window.matchMedia &&
+      matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    for (var i = 0; i < 7; i++) {
+      var h = document.createElement("i");
+      h.className = "heart-fx";
+      h.textContent = "♥";
+      h.style.setProperty("--dx", Math.random() * 90 - 45 + "px");
+      h.style.setProperty("--dy", -48 - Math.random() * 56 + "px");
+      h.style.animationDelay = i * 40 + "ms";
+      btn.appendChild(h);
+      (function (el) {
+        setTimeout(function () {
+          el.remove();
+        }, 1100);
+      })(h);
+    }
+  }
+  function initStats(tracked) {
+    var vEl = document.getElementById("statViews");
+    if (!vEl) return;
+    var lEl = document.getElementById("statLikes"),
+      btn = document.getElementById("likeBtn"),
+      note = document.getElementById("statNote");
+    var fmt = function (n) {
+      return Number(n || 0).toLocaleString("vi-VN");
+    };
+    var state = { views: 0, likes: 0, liked: likedLocal() };
+    var paint = function () {
+      vEl.textContent = fmt(state.views);
+      lEl.textContent = fmt(state.likes);
+      btn.classList.toggle("liked", state.liked);
+      btn.setAttribute("aria-pressed", state.liked);
+    };
+    tracked.then(pageStats).then(function (r) {
+      if (!r) {
+        vEl.textContent = "–";
+        lEl.textContent = "–";
+        return;
+      }
+      state = r;
+      paint();
+      if (note) note.hidden = !r.local;
+    });
+    btn.addEventListener("click", function () {
+      var want = !state.liked;
+      state.liked = want;
+      state.likes = Math.max(0, state.likes + (want ? 1 : -1));
+      paint();
+      if (want) burst(btn);
+      toggleLike(want).then(function (r) {
+        if (r) {
+          state.likes = r.likes;
+          state.liked = r.liked;
+          paint();
+        }
+      });
+    });
+  }
+
   window.SiteData = {
     isBackend: !!BACKEND_URL,
     submitRating: submitRating,
@@ -187,5 +311,5 @@
       write(K.rated, true);
     },
   };
-  track();
+  initStats(track());
 })();
